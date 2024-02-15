@@ -1,0 +1,35 @@
+
+<main>
+    <style>
+    body {
+        font-family: sans-serif;
+        background-color: white;
+    }
+    main {
+        width: 500px;
+        height: 200px;
+        display: flex;
+        gap: 1rem;
+    }
+    .imgs {
+        height: 150px;
+    }
+    .info {
+        border-right: 2px solid black;
+    }
+    </style>
+    <div class="info">
+        <h2>{{ data.Name }}</h2>
+        <div class="imgs">
+            {% for image in data.images %}
+                <img src="{{ image }}">Bild</img>
+            {% endfor %}
+        </div>
+        <div>{{ data.Typ }}</div>
+        <div>{{ data.Gerät }}</div>
+        <div>{{ data.Voraussetzung }}</div>
+    </div>
+    <div class="persons">
+        Hier ist platz für personsn
+    </div>
+</main>
