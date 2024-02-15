@@ -9,7 +9,7 @@
 
 ### TODO:
 
-[-] Bessere Bilder generieren (bspw. nicht it HMTL, sondern mit nem Python GUI Toolkit und davon screenshot machen oder sowas)
-[-] Bilderdaten ergänzen
-[-] Großes Bild mit zusammenhängenden Turnelementen draus Basteln
-[-] Farbe?
+- Bessere Bilder generieren (bspw. nicht it HMTL, sondern mit nem Python GUI Toolkit und davon screenshot machen oder sowas)
+- Bilderdaten ergänzen
+- Großes Bild mit zusammenhängenden Turnelementen draus Basteln
+- Farbe?
