@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Gaming</title>
+</head>
+
+<body>
+  <style>
+    :root {
+      font-family: Arial, Helvetica, sans-serif; 
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .card {
+      border: 1px solid black;
+      display: flex;
+      height: 300px;
+      width: 700px;
+    }
+
+    h1 {
+      margin: 0px;
+      text-align: center;
+    }
+
+    p {
+      margin: .5rem 0px;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+      span {
+        display: inline-block;
+      }
+    }
+
+    .left,
+    .right {
+      overflow: hidden;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+    .left {
+      min-width: 300px;
+      max-width: 450px;
+      padding-left: .5rem;
+      display: flex;
+    }
+    .right {
+      flex: 1 1 auto;
+    }
+
+    table {
+      height: 100%;
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: collapse;
+      thead {
+        font-size: 1.2em;
+        border-bottom: 1px solid black;
+      }
+      th:first-child {
+        width: 60%;
+      }
+      tr + tr {
+        border-top: 1px solid black;
+      }
+      td + td, th + th {
+        border-left: 1px solid black;
+      }
+    }
+
+    img {
+      width: 100%;
+      filter: grayscale();
+      border-radius: 1rem;
+      flex: 0 0 auto;;
+      margin: auto 0;
+    }
+    ul {
+      margin: 0px;
+      padding-left: 1rem;
+      columns: 2;
+      font-size: 1.1em;
+    }
+  </style>
+  <div class="card">
+    <div class="left">
+      <h1>{{ Name }}</h1>
+      <p>
+        <span>Typ: {{ Typ }}</span>
+        <span>Voraussetzung: {{ Voraussetzung }}</span>
+      </p>
+      {% if image_urls.0 %}
+      <img src="{{ image_urls.0 }}" alt="Turnen Piktogramm">
+      {% endif %}
+    </div>
+    <div class="right">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Datum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </tbody>
+      </table>
+      Hinweise:
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -74,7 +74,7 @@ def image_to_data_url(image):
 # Load the CSV file into a DataFrame    
 df = pd.read_csv(file_path)
 df.where(df.notnull(), None)
-df = df.loc[:1]
+# df = df.loc[:1]
 
 df["images"] = df.apply(piktogramm_to_image, axis=1)
 df["images"] = df["images"].apply(rescale_images)
@@ -84,19 +84,17 @@ df["image_urls"] = df["images"].apply(lambda imgs: list(map(image_to_data_url, i
 print(df)
 
 
-# from html2image import Html2Image
-# from jinja2 import Template
-# hti = Html2Image(size=(1000, 400))
+def render_html(data, to):
+    from html2image import Html2Image
+    from jinja2 import Template
+    hti = Html2Image(size=(702, 302))
 
-# template = Template(open("format.jinja2", "r", encoding="utf-8").read())
+    template = Template(open("..\\Turnen Card.jinja2", "r", encoding="utf-8").read())
 
-# # for id, row in df.iterrows():
-# for row in [df.loc[0]]:
-#     html = template.render(data=row)
-#     print(html)
+    html = template.render(data)
 
-#     images = hti.screenshot(html_str=html, save_as="test.png")
-#     print(images)
+    images = hti.screenshot(html_str=html, save_as=to.replace("/", "_"))
+    print(images)
 
 
 # Sieht scheise aus
@@ -167,10 +165,10 @@ print(df)
 # height = 300
 # cairosvg.svg2png(url='Turnen Card.svg', write_to='test.png', output_width=width, output_height=height)
 
-import subprocess
-inkscape = r"C:\Program Files\Inkscape\bin\inkscape.exe" # path to inkscape executable
 
 def svg_render(data):
+    import subprocess
+    inkscape = r"C:\Program Files\Inkscape\bin\inkscape.exe" # path to inkscape executable
     import tempfile
     template = jinja2.Template(open("Turnen Card.svg.jinja2", "r").read())
     save_file = open("temp.svg", "w+")
@@ -201,4 +199,10 @@ def svg_render(data):
 
 data = df.iloc[0].to_dict()
 
-svg_render(data)
+# svg_render(data)
+
+import os
+os.chdir("generated")
+for data in df.to_dict(orient="records"):
+    to = fr"{data['Name']}.png"
+    render_html(data, to)
