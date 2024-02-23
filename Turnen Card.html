@@ -21,7 +21,7 @@
       width: 700px;
     }
 
-    h1 {
+    h1, h2, h3, h4, h5, h6 {
       margin: 0px;
       text-align: center;
     }
@@ -74,11 +74,11 @@
     }
 
     .img-container {
+      border-radius: 1rem;
       flex: 0 1 auto;
       margin: auto auto;
 
       img {
-        border-radius: 1rem;
         width: 100%;
         filter: grayscale();
         height: 100%;
@@ -93,16 +93,18 @@
   </style>
   <div class="card">
     <div class="left">
+      {% if Name | length > 40 %}
       <h1>{{ Name }}</h1>
-      <p>
-        <span>Typ: {{ Typ if Typ  else "--"  }}</span>
-        <span>Voraussetzung: {{ VoraussetzungName if VoraussetzungName else "--" }}</span>
-      </p>
-      {% if image_urls.0 %}
-      <div class="img-container">
-        <img src="{{ image_urls.0 }}" alt="Turnen Piktogramm">
-      </div>
+      {% else %}
+      <h2>{{ Name }}</h2>
       {% endif %}
+      <p>
+        <span>Typ: {{ Typ }}</span>
+        <span>Voraussetzung: {{ Voraussetzung }}</span>
+      </p>
+    <div class="img-container">
+      <img src="https://www.gym-elements.com/readfile.php?fileid=165" alt="Turnen Piktogramm">
+    </div>
     </div>
     <div class="right">
       <table>

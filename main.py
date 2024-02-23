@@ -74,7 +74,7 @@ def image_to_data_url(image):
 # Load the CSV file into a DataFrame    
 df = pd.read_csv(file_path)
 df.where(df.notnull(), None)
-# df = df.loc[:1]
+# df = df.loc[12:15]
 
 df["images"] = df.apply(piktogramm_to_image, axis=1)
 df["images"] = df["images"].apply(rescale_images)
@@ -204,5 +204,10 @@ data = df.iloc[0].to_dict()
 import os
 os.chdir("generated")
 for data in df.to_dict(orient="records"):
+    # if data["Name"] != "Schwebesitz":
+    #     continue
+    row = df.loc[df["ID"] == data["Voraussetzung"]]
+    data["Typ"] = None if data["Typ"] == float("nan") else data["Typ"]
+    data["VoraussetzungName"] = row["Name"].values[0] if not row.empty else None
     to = fr"{data['Name']}.png"
     render_html(data, to)
