@@ -24,10 +24,12 @@
     h1 {
       margin: 0px;
       text-align: center;
+      margin-left: 1.5rem;
     }
 
     p {
       margin: .5rem 0px;
+      margin-left: 1.5rem;
       display: flex;
       flex-flow: row wrap;
       justify-content: space-evenly;
@@ -87,16 +89,27 @@
     ul {
       margin: 0px;
       padding-left: 1rem;
-      columns: 2;
       font-size: 1.1em;
+    }
+    .rating {
+      white-space: break-spaces;
+      width: 0;
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 3px black;
+      z-index: 1;
     }
   </style>
   <div class="card">
     <div class="left">
+      <div class="rating">{{ "💪 " * Schwierigkeit }}</div>
       <h1>{{ Name }}</h1>
       <p>
         <span>Typ: {{ Typ if Typ  else "--"  }}</span>
         <span>Voraussetzung: {{ VoraussetzungName if VoraussetzungName else "--" }}</span>
+        <span>D-Wert: {{ DWert if DWert else "--" }}</span>
       </p>
       {% if image_urls.0 %}
       <div class="img-container">
@@ -115,12 +128,10 @@
           <tr><td></td><td></td></tr>
           <tr><td></td><td></td></tr>
           <tr><td></td><td></td></tr>
-          <tr><td></td><td></td></tr>
         </tbody>
       </table>
       Hinweise:
       <ul>
-        <li></li>
         <li></li>
         <li></li>
         <li></li>

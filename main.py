@@ -9,31 +9,35 @@ import os.path
 # Replace 'your_file.csv' with the actual path to your CSV file
 file_path = 'table.csv'
 
+def name_to_file_name(name):
+    return name.replace("/", "_") + ".png"
+
 def piktogramm_to_image(row):
     ref = row["Piktogramm"]
     if not ref or ref in ("-", "?", "nan"):
         return []
-    # try loading the image from ref as url
     
+    path = os.path.join("images", name_to_file_name(row["Name"]))
     try:
-        urls = ref.split()
-        imgs = []
-        for url in urls:
-            resp = requests.get(url)
-            image = Image.open(BytesIO(resp.content))
-            imgs.append(image)
-        return imgs
-    except Exception as e:
-        print(e)
-    
-    try:
-        path = os.path.join("images", row["Name"].replace("/", "_") + ".png")
         image = Image.open(path)
         print("Loaded from local path", path)
         return [image]
     except Exception as e:
         print(e)
-
+    
+    # try loading the image from ref as url
+    try:
+        url = ref.split()[0]
+        imgs = []
+        resp = requests.get(url)
+        image = Image.open(BytesIO(resp.content))
+        imgs.append(image)
+        image.save(path)
+        return imgs
+    except Exception as e:
+        print(e)
+    
+    print(f"No image found for {row['Name']}")
     return []
 
 
@@ -79,6 +83,7 @@ df.where(df.notnull(), None)
 df["images"] = df.apply(piktogramm_to_image, axis=1)
 df["images"] = df["images"].apply(rescale_images)
 df["image_urls"] = df["images"].apply(lambda imgs: list(map(image_to_data_url, imgs)))
+df["DWert"] = df["D-Wert"]
 
 # Display the DataFrame (optional)
 print(df)
@@ -93,7 +98,7 @@ def render_html(data, to):
 
     html = template.render(data)
 
-    images = hti.screenshot(html_str=html, save_as=to.replace("/", "_"))
+    images = hti.screenshot(html_str=html, save_as=to)
     print(images)
 
 
@@ -206,8 +211,12 @@ os.chdir("generated")
 for data in df.to_dict(orient="records"):
     # if data["Name"] != "Schwebesitz":
     #     continue
-    row = df.loc[df["ID"] == data["Voraussetzung"]]
+    try:
+        req_id = int(data["Voraussetzung"])
+        req_name = df.loc[df["ID"] == req_id].to_dict(orient="records")[0]["Name"]
+    except ValueError:
+        req_name = None
+    data["VoraussetzungName"] = req_name
     data["Typ"] = None if data["Typ"] == float("nan") else data["Typ"]
-    data["VoraussetzungName"] = row["Name"].values[0] if not row.empty else None
-    to = fr"{data['Name']}.png"
+    to = name_to_file_name(data['Name'])
     render_html(data, to)

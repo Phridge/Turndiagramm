@@ -24,6 +24,7 @@
     h1, h2, h3, h4, h5, h6 {
       margin: 0px;
       text-align: center;
+      margin-left: 1rem;
     }
 
     p {
@@ -87,12 +88,20 @@
     ul {
       margin: 0px;
       padding-left: 1rem;
-      columns: 2;
       font-size: 1.1em;
+    }
+    .rating {
+      white-space: break-spaces;
+      width: 0;
+      position: absolute;
+      top: .5rem;
+      left: .5rem;
+      font-size: 1.2em;
     }
   </style>
   <div class="card">
     <div class="left">
+      <div class="rating">💪 💪 💪</div>
       {% if Name | length > 40 %}
       <h1>{{ Name }}</h1>
       {% else %}
@@ -101,6 +110,7 @@
       <p>
         <span>Typ: {{ Typ }}</span>
         <span>Voraussetzung: {{ Voraussetzung }}</span>
+        <span>Voraussetzung: {{ D-Wert }}</span>
       </p>
     <div class="img-container">
       <img src="https://www.gym-elements.com/readfile.php?fileid=165" alt="Turnen Piktogramm">
@@ -117,12 +127,10 @@
           <tr><td></td><td></td></tr>
           <tr><td></td><td></td></tr>
           <tr><td></td><td></td></tr>
-          <tr><td></td><td></td></tr>
         </tbody>
       </table>
       Hinweise:
       <ul>
-        <li></li>
         <li></li>
         <li></li>
         <li></li>
