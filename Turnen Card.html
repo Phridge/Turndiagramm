@@ -31,7 +31,8 @@
       margin: .5rem 0px;
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      justify-content: center;
+      column-gap: 2rem;
       span {
         display: inline-block;
       }
@@ -102,7 +103,7 @@
   <div class="card">
     <div class="left">
       <div class="rating">💪 💪 💪</div>
-      {% if Name | length > 40 %}
+      {% if Name | length < 30 %}
       <h1>{{ Name }}</h1>
       {% else %}
       <h2>{{ Name }}</h2>
@@ -110,7 +111,7 @@
       <p>
         <span>Typ: {{ Typ }}</span>
         <span>Voraussetzung: {{ Voraussetzung }}</span>
-        <span>Voraussetzung: {{ D-Wert }}</span>
+        <span>D-Wert: {{ D-Wert }}</span>
       </p>
     <div class="img-container">
       <img src="https://www.gym-elements.com/readfile.php?fileid=165" alt="Turnen Piktogramm">

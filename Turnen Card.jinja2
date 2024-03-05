@@ -21,7 +21,7 @@
       width: 700px;
     }
 
-    h1 {
+    h1, h2, h3, h4 {
       margin: 0px;
       text-align: center;
       margin-left: 1.5rem;
@@ -30,9 +30,10 @@
     p {
       margin: .5rem 0px;
       margin-left: 1.5rem;
+      column-gap: 2rem;
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      justify-content: center;
       span {
         display: inline-block;
       }
@@ -105,7 +106,11 @@
   <div class="card">
     <div class="left">
       <div class="rating">{{ "💪 " * Schwierigkeit }}</div>
+      {% if Name | length < 30 %}
       <h1>{{ Name }}</h1>
+      {% else %}
+      <h2>{{ Name }}</h2>
+      {% endif %}
       <p>
         <span>Typ: {{ Typ if Typ  else "--"  }}</span>
         <span>Voraussetzung: {{ VoraussetzungName if VoraussetzungName else "--" }}</span>

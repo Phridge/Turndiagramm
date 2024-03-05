@@ -211,12 +211,14 @@ os.chdir("generated")
 for data in df.to_dict(orient="records"):
     # if data["Name"] != "Schwebesitz":
     #     continue
+    from math import isnan
     try:
         req_id = int(data["Voraussetzung"])
         req_name = df.loc[df["ID"] == req_id].to_dict(orient="records")[0]["Name"]
     except ValueError:
         req_name = None
     data["VoraussetzungName"] = req_name
-    data["Typ"] = None if data["Typ"] == float("nan") else data["Typ"]
+    data["Typ"] = None if isinstance(data["Typ"], float) and isnan(data["Typ"]) else data["Typ"]
+    data["DWert"] = None if isinstance(data["DWert"], float) and isnan(data["DWert"]) else data["DWert"]
     to = name_to_file_name(data['Name'])
     render_html(data, to)
